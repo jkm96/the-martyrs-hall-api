@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('submissions', function (Blueprint $table) {
+        Schema::create('martyrs', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->string('email');
             $table->string('name');
             $table->date('birth_date');
@@ -21,9 +22,7 @@ return new class extends Migration
             $table->text('contributions'); // Contributions and Impact
             $table->text('death_reason'); // Circumstances of Death
             $table->string('profile_picture')->nullable(); // Store file path as a string
-            $table->boolean('is_approved')->default(0);
-            $table->date('approved_at')->nullable();
-            $table->string('approved_by')->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('submissions');
+        Schema::dropIfExists('martyrs');
     }
 };

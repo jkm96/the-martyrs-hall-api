@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\THM;
+namespace App\Http\Controllers\TMH;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Submissions\CreateSubmissionRequest;
-use App\Http\Requests\Submissions\FetchPostsFormRequest;
+use App\Http\Requests\Submissions\FetchMartyrsFormRequest;
 use App\Http\Requests\Submissions\UpdatePostRequest;
-use App\Services\DiscussifyCore\PostService;
+use App\Services\TMH\SubmissionService;
 use Illuminate\Http\JsonResponse;
 
-class PostController extends Controller
+class SubmissionController extends Controller
 {
-    private PostService $_postService;
+    private SubmissionService $_postService;
 
-    public function __construct(PostService $PostService)
+    public function __construct(SubmissionService $PostService)
     {
         $this->_postService = $PostService;
     }
@@ -38,10 +38,10 @@ class PostController extends Controller
     }
 
     /**
-     * @param FetchPostsFormRequest $postsRequest
+     * @param FetchMartyrsFormRequest $postsRequest
      * @return JsonResponse
      */
-    public function getPosts(FetchPostsFormRequest $postsRequest): JsonResponse
+    public function getPosts(FetchMartyrsFormRequest $postsRequest): JsonResponse
     {
         return $this->_postService->getPosts($postsRequest);
     }

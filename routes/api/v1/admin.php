@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ManageFeedbackController;
-use App\Http\Controllers\Admin\ManageUserController;
+use App\Http\Controllers\Admin\ManageSubmissionsController;
 use App\Http\Middleware\CheckIsAdminMiddleware;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -14,10 +13,11 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'api/v1', 'middleware' => '
     Route::middleware([Authenticate::using('sanctum'), CheckIsAdminMiddleware::class])->group(function () {
         Route::post('logout', [AdminController::class, 'logoutAdmin']);
 
-        Route::group(['prefix' => 'manage-users', 'middleware' => 'api'], function () {
-            Route::get('', [ManageUserController::class, 'getUsers']);
-            Route::get('{userId}', [ManageUserController::class, 'getUserById']);
-            Route::put('{userId}/toggle-status', [ManageUserController::class, 'toggleUserStatus']);
+        Route::group(['prefix' => 'manage-submissions', 'middleware' => 'api'], function () {
+            Route::get('', [ManageSubmissionsController::class, 'getSubmissions']);
+            Route::post('approve', [ManageSubmissionsController::class, 'approveSubmission']);
+            Route::get('{userId}', [ManageSubmissionsController::class, 'getUserById']);
+            Route::put('{userId}/toggle-status', [ManageSubmissionsController::class, 'toggleUserStatus']);
         });
     });
 });

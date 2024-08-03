@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/status',
         then: function () {
@@ -21,6 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('api')
                 ->name('admin.')
                 ->group(base_path('routes/api/v1/admin.php'));
+
+            Route::middleware('api')
+                ->prefix('api')
+                ->name('martyr.')
+                ->group(base_path('routes/api/v1/martyr.php'));
 
             Route::middleware('api')
                 ->prefix('api')

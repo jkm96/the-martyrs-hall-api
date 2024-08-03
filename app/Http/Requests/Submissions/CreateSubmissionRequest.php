@@ -5,9 +5,10 @@ namespace App\Http\Requests\Submissions;
 use App\Utils\Helpers\ResponseHelpers;
 use Illuminate\Contracts\Validation\Validator;
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateSubmissionRequest extends BaseFormRequest
+class CreateSubmissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +28,14 @@ class CreateSubmissionRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|min:5|unique:posts',
-            'forum_slug' => 'required|string',
-            'description'=>'required|string ',
-            'tags'=>'nullable|string'
+            'email' => 'required|email',
+            'name' => 'required|string|unique:submissions',
+            'birth_date' => 'required|date',
+            'death_date' => 'required|date',
+            'location' => 'required|string',
+            'contributions' => 'required|string',
+            'death_reason' => 'required|string',
+            'profile_picture' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 

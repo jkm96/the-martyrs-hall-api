@@ -8,7 +8,7 @@ use App\Http\Requests\BaseFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdatePostRequest extends FormRequest
+class ApproveSubmissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,7 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|min:5',
-            'description'=>'required|string ',
-            'tags'=>'required|string ',
-            'type'=>'required|string ',
+            'submission_id' => 'required'
         ];
     }
 
