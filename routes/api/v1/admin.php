@@ -14,10 +14,9 @@ Route::group(['prefix' => 'v1/admin', 'namespace' => 'api/v1', 'middleware' => '
         Route::post('logout', [AdminController::class, 'logoutAdmin']);
 
         Route::group(['prefix' => 'manage-submissions', 'middleware' => 'api'], function () {
-            Route::get('', [ManageSubmissionsController::class, 'getSubmissions']);
-            Route::post('approve', [ManageSubmissionsController::class, 'approveSubmission']);
-            Route::get('{userId}', [ManageSubmissionsController::class, 'getUserById']);
-            Route::put('{userId}/toggle-status', [ManageSubmissionsController::class, 'toggleUserStatus']);
+            Route::post('', [ManageSubmissionsController::class, 'getSubmissions']);
+            Route::post('toggle-status', [ManageSubmissionsController::class, 'approveSubmission']);
+            Route::post('retrieve-by-id', [ManageSubmissionsController::class, 'retrieveSubmissionById']);
         });
     });
 });

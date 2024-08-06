@@ -47,8 +47,8 @@ class SubmissionService
             $submission = Submission::create([
                 'email' => $createSubmissionRequest['email'],
                 'name' => $createSubmissionRequest['name'],
-                'birth_date' => $createSubmissionRequest['birth_date'],
-                'death_date' => $createSubmissionRequest['death_date'],
+                'birth_date' => $this->formatDateString($createSubmissionRequest['birth_date']),
+                'death_date' => $this->formatDateString($createSubmissionRequest['death_date']),
                 'location' => $createSubmissionRequest['location'],
                 'contributions' => $createSubmissionRequest['contributions'],
                 'death_reason' => $createSubmissionRequest['death_reason'],

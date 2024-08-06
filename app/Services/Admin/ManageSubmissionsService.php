@@ -151,20 +151,18 @@ class ManageSubmissionsService
         }
     }
 
-
-
     /**
-     * @param $userId
+     * @param $submissionRequest
      * @return JsonResponse
      */
-    public function getUserById($userId)
+    public function getSubmissionById($submissionRequest)
     {
         try {
-            $user = User::findOrFail($userId);
+            $submission = Submission::findOrFail($submissionRequest['submission_id']);
 
             return ResponseHelpers::ConvertToJsonResponseWrapper(
-                new UserResource($user),
-                'User fetched successfully',
+                new UserResource($submission),
+                'Submission fetched successfully',
                 200
             );
         } catch (ModelNotFoundException $e) {
@@ -172,34 +170,7 @@ class ManageSubmissionsService
         } catch (Exception $e) {
             return ResponseHelpers::ConvertToJsonResponseWrapper(
                 ['error' => $e->getMessage()],
-                'Error fetching user details',
-                500
-            );
-        }
-    }
-
-    /**
-     * @param $userId
-     * @return JsonResponse
-     */
-    public function toggleUser($userId)
-    {
-        try {
-            $user = User::findOrFail($userId);
-            $user->is_active = $user->is_active ? 0 : 1;
-            $user->update();
-
-            return ResponseHelpers::ConvertToJsonResponseWrapper(
-                ['user' => $user],
-                'User toggled successfully',
-                200
-            );
-        } catch (ModelNotFoundException $e) {
-            return ModelCrudHelpers::itemNotFoundError($e);
-        } catch (Exception $e) {
-            return ResponseHelpers::ConvertToJsonResponseWrapper(
-                ['error' => $e->getMessage()],
-                'Error toggling user',
+                'Error fetching submission details',
                 500
             );
         }

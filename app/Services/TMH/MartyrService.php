@@ -8,6 +8,8 @@ use App\Models\Martyr;
 use App\Models\Submission;
 use App\Utils\Helpers\ResponseHelpers;
 use App\Utils\Traits\DateFilterTrait;
+use DateTime;
+use DateTimeZone;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -79,36 +81,40 @@ class MartyrService
      * @param $query
      * @param $params
      * @return void
+     * @throws Exception
      */
     private function applyFilters($query, $params)
     {
-        $this->applyDateFilters($query, $params['period_from'] ?? null, $params['period_to'] ?? null);
+        if (!empty($params['period_from']) || !empty($params['period_to'])){
+            $periodFrom = $this->formatDateString($params['period_from']);
+            $periodTo = $this->formatDateString($params['period_to']);
+            $this->applyDateFilters($query, $periodFrom, $periodTo);
+        }
 
         if (!empty($params['country'])) {
             $query->where('location', $params['country']);
         }
 
         if (!empty($params['reason'])) {
-            $query->where('death_reason', $params['reason']);
+            $query->where('death_reason', str_replace('_',' ',$params['reason']));
         }
 
-        $this->applySearchTermFilter($query, $params['search_term'] ?? null);
+        if(!empty($params['search_term'])){
+            $this->applySearchTermFilter($query, $params['search_term']);
+        }
     }
 
     /**
      * @param $query
      * @param $searchTerm
-     * @return void
      */
     private function applySearchTermFilter($query, $searchTerm)
     {
-        if ($searchTerm) {
-            $query->where(function ($query) use ($searchTerm) {
-                $query->where('name', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('contributions', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('death_reason', 'like', '%' . $searchTerm . '%');
-            });
-        }
+        $query->where(function ($query) use ($searchTerm) {
+            $query->where('name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('contributions', 'like', '%' . $searchTerm . '%')
+                ->orWhere('death_reason', 'like', '%' . $searchTerm . '%');
+        });
     }
 
     public function getMartyrBySlug($slug)

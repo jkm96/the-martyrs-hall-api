@@ -8,7 +8,7 @@ use App\Http\Requests\BaseFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateSubmissionRequest extends FormRequest
+class RetrieveSubmissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,14 +28,7 @@ class CreateSubmissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'name' => 'required|string|unique:submissions',
-            'birth_date' => 'required|date',
-            'death_date' => 'required|date',
-            'location' => 'required|string',
-            'contributions' => 'required|string',
-            'death_reason' => 'required|string',
-            'profile_picture' => 'file|mimes:jpeg,png,jpg|max:2048'
+            'submission_id' => 'required'
         ];
     }
 

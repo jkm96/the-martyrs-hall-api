@@ -3,6 +3,8 @@
 namespace App\Utils\Traits;
 
 use DateTime;
+use DateTimeZone;
+use Exception;
 
 trait DateFilterTrait
 {
@@ -25,5 +27,18 @@ trait DateFilterTrait
 
             $query->whereBetween('created_at', [$dateTimeFrom, $dateTimeTo]);
         }
+    }
+
+
+    /**
+     * @param $dateString
+     * @return string
+     * @throws Exception
+     */
+    public function formatDateString($dateString): string
+    {
+        $date = new DateTime($dateString);
+        $date->setTimezone(new DateTimeZone('UTC'));
+        return $date->format('Y-m-d');
     }
 }

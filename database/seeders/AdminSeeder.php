@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Utils\Helpers\AuthHelpers;
+use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,6 +12,7 @@ class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * @throws Exception
      */
     public function run(): void
     {
@@ -19,7 +21,7 @@ class AdminSeeder extends Seeder
             $profileUrl = AuthHelpers::createUserAvatarFromName("thm", true);
             Admin::create([
                 'username' => 'jkm96.dev',
-                'email' => 'jkmdroid@thm.org',
+                'email' => 'jkmdroid@tmh.org',
                 'password' => Hash::make('jkm@2Pac'),
                 'is_active' => true,
                 'profile_url' => $profileUrl
