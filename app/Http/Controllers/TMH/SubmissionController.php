@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\TMH;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Martyrs\FetchMartyrsFormRequest;
 use App\Http\Requests\Submissions\CreateSubmissionRequest;
-use App\Http\Requests\Submissions\FetchMartyrsFormRequest;
 use App\Http\Requests\Submissions\UpdatePostRequest;
 use App\Services\TMH\SubmissionService;
 use Illuminate\Http\JsonResponse;

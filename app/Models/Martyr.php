@@ -20,6 +20,7 @@ class Martyr extends Model
         'death_reason',
         'profile_picture',
         'is_active',
+        'candles',
     ];
 
     protected static function boot()

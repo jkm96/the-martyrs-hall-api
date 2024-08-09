@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Submissions;
+namespace App\Http\Requests\Martyrs;
 
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Contracts\Validation\ValidationRule;

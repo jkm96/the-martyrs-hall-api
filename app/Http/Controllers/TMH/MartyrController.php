@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\TMH;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Submissions\CreateSubmissionRequest;
-use App\Http\Requests\Submissions\FetchMartyrsFormRequest;
-use App\Http\Requests\Submissions\UpdatePostRequest;
+use App\Http\Requests\Martyrs\FetchMartyrsFormRequest;
+use App\Http\Requests\Martyrs\LightMartyrsCandleRequest;
+use App\Http\Requests\Martyrs\RetrieveMartyrRequest;
 use App\Services\TMH\MartyrService;
-use App\Services\TMH\SubmissionService;
 use Illuminate\Http\JsonResponse;
 
 class MartyrController extends Controller
@@ -31,11 +30,23 @@ class MartyrController extends Controller
     }
 
     /**
-     * @param $slug
+     * @param RetrieveMartyrRequest $martyrRequest
      * @return JsonResponse
      */
-    public function getMartyrBySlug($slug): JsonResponse
+    public function retrieveMartyrById(RetrieveMartyrRequest $martyrRequest): JsonResponse
     {
-        return $this->_martyrService->getMartyrBySlug($slug);
+        return $this->_martyrService->getMartyrBySlug($martyrRequest);
+    }
+
+
+    /**
+     * Light a martyr's candle by increasing the candle count.
+     *
+     * @param LightMartyrsCandleRequest $martyrRequest
+     * @return JsonResponse
+     */
+    public function lightMartyrsCandle(LightMartyrsCandleRequest $martyrRequest): JsonResponse
+    {
+        return $this->_martyrService->lightMartyrsCandle($martyrRequest);
     }
 }

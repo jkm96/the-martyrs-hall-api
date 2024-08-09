@@ -12,6 +12,7 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class MartyrService
 {
@@ -62,19 +63,14 @@ class MartyrService
      */
     private function parseOrderBy(string $orderBy): array
     {
-        if (empty($orderBy)) {
-            return ['created_at', 'desc'];
-        }
+        $orderMapping = [
+            'thm_name_asc' => ['name', 'asc'],
+            'thm_oldest_asc' => ['death_date', 'asc'],
+            'thm_latest_desc' => ['death_date', 'desc'],
+            'created_at_desc' => ['created_at', 'desc']
+        ];
 
-        $parts = explode(' ', trim($orderBy));
-        $column = $parts[0] ?? 'created_at';
-        $direction = strtolower($parts[1] ?? 'desc');
-
-        if (!in_array($direction, ['asc', 'desc'])) {
-            $direction = 'desc';
-        }
-
-        return [$column, $direction];
+        return $orderMapping[$orderBy] ?? ['created_at', 'desc'];
     }
 
     /**
@@ -117,7 +113,82 @@ class MartyrService
         });
     }
 
-    public function getMartyrBySlug($slug)
+    /**
+     * @param $martyrRequest
+     * @return JsonResponse
+     */
+    public function getMartyrBySlug($martyrRequest): JsonResponse
     {
+        try {
+            $slug = $martyrRequest['martyr_id'] ?? null;
+            if (!$slug) {
+                return ResponseHelpers::ConvertToJsonResponseWrapper(
+                    ['error' => 'Slug is required'],
+                    'Invalid request',
+                    400
+                );
+            }
+
+            $martyr = Martyr::where('slug', $slug)->where('is_active', true)->first();
+
+            if (!$martyr) {
+                return ResponseHelpers::ConvertToJsonResponseWrapper(
+                    ['error' => 'Martyr not found'],
+                    'Martyr not found',
+                    404
+                );
+            }
+
+            return ResponseHelpers::ConvertToJsonResponseWrapper(
+                new MartyrResource($martyr),
+                'Martyr retrieved successfully',
+                200
+            );
+        } catch (Exception $e) {
+            return ResponseHelpers::ConvertToJsonResponseWrapper(
+                ['error' => $e->getMessage()],
+                'Error retrieving martyr',
+                500
+            );
+        }
     }
+
+    /**
+     * @param array $requestData
+     * @return JsonResponse
+     */
+    public function lightMartyrsCandle($requestData): JsonResponse
+    {
+        try {
+            $slug = $requestData['martyr_id'] ?? null;
+            Log::info($requestData['tmh_ip_address']);
+            $martyr = Martyr::where('slug', $slug)->where('is_active', true)->first();
+
+            if (!$martyr) {
+                return ResponseHelpers::ConvertToJsonResponseWrapper(
+                    ['error' => 'Martyr not found'],
+                    'Martyr not found',
+                    404
+                );
+            }
+
+            // Increase the candle count
+            $martyr->candles = ($martyr->candles ?? 0) + 1;
+            $martyr->save();
+
+            return ResponseHelpers::ConvertToJsonResponseWrapper(
+                new MartyrResource($martyr),
+                'Candle lit successfully',
+                200
+            );
+        } catch (Exception $e) {
+            return ResponseHelpers::ConvertToJsonResponseWrapper(
+                ['error' => $e->getMessage()],
+                'Error lighting candle',
+                500
+            );
+        }
+    }
+
+
 }
