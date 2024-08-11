@@ -10,7 +10,7 @@ class Martyr extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'unique_slug',
+        'slug',
         'email',
         'name',
         'birth_date',
