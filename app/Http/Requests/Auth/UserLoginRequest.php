@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Http\Requests\BaseFormRequest;
 use App\Utils\Helpers\ResponseHelpers;
 use Illuminate\Contracts\Validation\Validator;
-use App\Http\Requests\BaseFormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserLoginRequest extends BaseFormRequest

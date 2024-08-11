@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ManageSubmissionsController;
 use App\Http\Controllers\TMH\SubmissionController;
 use Illuminate\Support\Facades\Route;
 

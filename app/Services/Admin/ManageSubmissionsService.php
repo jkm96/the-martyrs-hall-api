@@ -3,17 +3,14 @@
 namespace App\Services\Admin;
 
 use App\Http\Resources\UserResource;
-use App\Models\Admin;
 use App\Models\Martyr;
 use App\Models\Submission;
-use App\Models\User;
 use App\Utils\Helpers\ModelCrudHelpers;
 use App\Utils\Helpers\ResponseHelpers;
 use App\Utils\Traits\DateFilterTrait;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ManageSubmissionsService

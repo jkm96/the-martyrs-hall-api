@@ -3,13 +3,9 @@
 namespace App\Services\TMH;
 
 use App\Http\Resources\MartyrResource;
-use App\Http\Resources\SubmissionResource;
 use App\Models\Martyr;
-use App\Models\Submission;
 use App\Utils\Helpers\ResponseHelpers;
 use App\Utils\Traits\DateFilterTrait;
-use DateTime;
-use DateTimeZone;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;

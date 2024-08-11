@@ -3,11 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Martyr;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class MartyrSeeder extends Seeder
 {

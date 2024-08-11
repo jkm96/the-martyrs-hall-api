@@ -4,12 +4,9 @@ namespace App\Services\TMH;
 
 use App\Http\Resources\SubmissionResource;
 use App\Models\Submission;
-use App\Models\User;
 use App\Utils\Constants\AppConstants;
-use App\Utils\Helpers\AuthHelpers;
 use App\Utils\Helpers\ModelCrudHelpers;
 use App\Utils\Helpers\ResponseHelpers;
-use App\Utils\Traits\DateFilterTrait;
 use App\Utils\Traits\RecordFilterTrait;
 use Carbon\Carbon;
 use Exception;
@@ -19,7 +16,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class SubmissionService
