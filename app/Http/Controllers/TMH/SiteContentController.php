@@ -27,12 +27,12 @@ class SiteContentController extends Controller
     }
 
     /**
-     * @param $contentId
+     * @param FetchSiteContentRequest $contentRequest
      * @return JsonResponse
      */
-    public function getSiteContentById($contentId): JsonResponse
+    public function getSiteContentById(FetchSiteContentRequest $contentRequest): JsonResponse
     {
-        return $this->_contentService->fetchSiteContentById($contentId);
+        return $this->_contentService->fetchSiteContentById($contentRequest);
     }
 
     /**

@@ -7,7 +7,7 @@ Route::group(['prefix' => 'v1/site-content', 'namespace' => 'api/v1', 'middlewar
     Route::post('retrieve', [SiteContentController::class, 'getSiteContent']);
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [SiteContentController::class, 'createContent']);
-        Route::get('{contentId}', [SiteContentController::class, 'getSiteContentById']);
-        Route::put('{contentId}', [SiteContentController::class, 'updateSiteContent']);
+        Route::post('retrieve-by-id', [SiteContentController::class, 'getSiteContentById']);
+        Route::post('update', [SiteContentController::class, 'updateSiteContent']);
     });
 });

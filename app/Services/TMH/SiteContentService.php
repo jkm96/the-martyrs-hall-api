@@ -45,13 +45,13 @@ class SiteContentService
     }
 
     /**
-     * @param $contentId
+     * @param $contentRequest
      * @return JsonResponse
      */
-    public function fetchSiteContentById($contentId): JsonResponse
+    public function fetchSiteContentById($contentRequest): JsonResponse
     {
         try {
-            $content = SiteContent::findOrFail($contentId);
+            $content = SiteContent::findOrFail($contentRequest['content_id']);
 
             return ResponseHelpers::ConvertToJsonResponseWrapper(
                 new SiteContentResource($content),
